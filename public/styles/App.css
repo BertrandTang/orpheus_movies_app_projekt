@@ -1,0 +1,10 @@
+img {
+    height: 500px;
+    object-fit: cover;
+    padding: 0;
+    object-position: top;
+}
+
+.invalid-feedback {
+    display: block !important;
+}
