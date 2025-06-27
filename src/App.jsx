@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { Row, Col, Container } from "react-bootstrap";
 import MovieInformation from "./components/MovieInformation";
 import CommentForm from "./components/CommentForm";
@@ -10,7 +9,6 @@ function App() {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const comments = useSelector((state) => state.comments);
 
   useEffect(() => {
     async function fetchOneRandomMovie() {
