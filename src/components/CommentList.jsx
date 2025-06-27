@@ -1,14 +1,24 @@
-import { Alert, Button, Card } from "react-bootstrap";
+import { Alert, Button, ListGroup } from "react-bootstrap";
+import { deleteComment } from "../redux/commentSlice";
 
-function CommentList({ comments, handleDeleteComment }) {
+function CommentList({ comments, dispatch }) {
+  const handleDeleteComment = (commentId) => {
+    dispatch(deleteComment(commentId));
+  };
+
   return (
     <>
       {comments && comments.length > 0 ? (
-        comments.map((comment) => (
-          <Card key={comment.id} className="p-2">
-            <Card.Title>Note : {comment.note}/5</Card.Title>
-            <Card.Text>{comment.comment}</Card.Text>
-            <div className="d-flex justify-content-end">
+        <ListGroup className="mt-3">
+          {comments.map((comment) => (
+            <ListGroup.Item
+              key={comment.id}
+              className="d-flex justify-content-between align-items-end"
+            >
+              <div className="flex-grow-1 me-2">
+                <div className="fw-bold">Note : {comment.note}/5</div>
+                <div>{comment.comment}</div>
+              </div>
               <Button
                 variant="danger"
                 size="sm"
@@ -16,9 +26,9 @@ function CommentList({ comments, handleDeleteComment }) {
               >
                 Supprimer
               </Button>
-            </div>
-          </Card>
-        ))
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
       ) : (
         <Alert variant="info" className="mt-3">
           Aucun commentaire pour le moment.

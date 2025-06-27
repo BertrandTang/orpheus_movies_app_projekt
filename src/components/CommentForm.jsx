@@ -1,18 +1,65 @@
 import { Button, Form } from "react-bootstrap";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { addComment } from "../redux/commentSlice";
 
-function CommentForm({ onSubmit, register, errors }) {
+const schema = yup.object().shape({
+  comment: yup
+    .string()
+    .required("Le commentaire est obligatoire.")
+    .max(500, "Le commentaires ne doit pas excéder 500 caractères."),
+  note: yup
+    .number()
+    .typeError("Veuillez sélectionner une note."),
+  acceptConditions: yup
+    .boolean()
+    .oneOf([true], "Vous devez accepter les conditions générales."),
+});
+
+function CommentForm({ dispatch }) {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(schema),
+    defaultValues: {
+      comment: "",
+      note: "default",
+      acceptConditions: false,
+    },
+  });
+
+  const onSubmit = () => {
+    const note = getValues("note");
+    const comment = getValues("comment");
+
+    const dataToStore = {
+      note: note,
+      comment: comment,
+    };
+
+    dispatch(addComment(dataToStore));
+    reset();
+  };
+
   const options = [];
   for (let i = 1; i <= 5; i++) {
     options.push(
-      <option key={i} value={i}>
-        {i}
+      <option key={i} value={Number(i)}>
+        {Number(i)}
       </option>
     );
   }
+
   return (
     <>
       <h1 className="text-start mt-4">Commentaires</h1>
-      <Form onSubmit={onSubmit}>
+
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group controlId="comment" className="mb-3">
           <Form.Label>Ajouter un commentaire</Form.Label>
           <Form.Control

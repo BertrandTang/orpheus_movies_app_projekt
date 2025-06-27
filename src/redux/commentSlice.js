@@ -18,11 +18,8 @@ const commentSlice = createSlice({
             const index = state.findIndex(comment => comment.id === idToDelete);
 
             if (index !== -1) {
-                const newComments = [...state];
-                newComments.splice(index, 1);
-                return newComments;
+                state.splice(index, 1);
             }
-            return state;
         },
     },
 });
