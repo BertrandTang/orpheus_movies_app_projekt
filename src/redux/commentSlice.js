@@ -1,5 +1,3 @@
-// Centralise la logique métier
-
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [];
@@ -16,9 +14,15 @@ const commentSlice = createSlice({
             });
         },
         deleteComment: (state, action) => {
-            return state.filter(
-                (comment) => comment.id !== action.payload
-            );
+            const idToDelete = action.payload;
+            const index = state.findIndex(comment => comment.id === idToDelete);
+
+            if (index !== -1) {
+                const newComments = [...state];
+                newComments.splice(index, 1);
+                return newComments;
+            }
+            return state;
         },
     },
 });
