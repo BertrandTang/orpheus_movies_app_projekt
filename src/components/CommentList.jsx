@@ -5,8 +5,7 @@ function CommentList({ comments, handleDeleteComment }) {
     <>
       {comments && comments.length > 0 ? (
         comments.map((comment) => (
-          <Card key={comment.id} className="p-2 mt-3">
-            {" "}
+          <Card key={comment.id} className="p-2">
             <Card.Title>Note : {comment.note}/5</Card.Title>
             <Card.Text>{comment.comment}</Card.Text>
             <div className="d-flex justify-content-end">
