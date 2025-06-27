@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux"; 
 import { Row, Col, Container } from "react-bootstrap";
 import MovieInformation from "./components/MovieInformation";
 import CommentForm from "./components/CommentForm";
@@ -10,7 +10,6 @@ function App() {
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const dispatch = useDispatch();
   const comments = useSelector((state) => state.comments);
 
   useEffect(() => {
@@ -54,8 +53,8 @@ function App() {
         <Row>
           <Col md={6} className="offset-md-3">
             <MovieInformation movie={movie} />
-            <CommentForm dispatch={dispatch} />
-            <CommentList comments={comments} dispatch={dispatch} />
+            <CommentForm />
+            <CommentList comments={comments} />
           </Col>
         </Row>
       </Container>

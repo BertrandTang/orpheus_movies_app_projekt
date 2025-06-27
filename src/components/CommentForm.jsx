@@ -2,22 +2,28 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { addComment } from "../redux/commentSlice";
+import { useDispatch } from "react-redux";
+import { addComment } from "./redux/commentSlice";
 
 const schema = yup.object().shape({
   comment: yup
     .string()
     .required("Le commentaire est obligatoire.")
-    .max(500, "Le commentaires ne doit pas excéder 500 caractères."),
+    .max(500, "Le commentaire ne doit pas excéder 500 caractères."),
   note: yup
     .number()
-    .typeError("Veuillez sélectionner une note."),
+    .typeError("Veuillez sélectionner une note.")
+    .required("La note est obligatoire.")
+    .min(1, "La note doit être au minimum de 1.")
+    .max(5, "La note doit être au maximum de 5."),
   acceptConditions: yup
     .boolean()
     .oneOf([true], "Vous devez accepter les conditions générales."),
 });
 
-function CommentForm({ dispatch }) {
+function CommentForm() {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -49,8 +55,8 @@ function CommentForm({ dispatch }) {
   const options = [];
   for (let i = 1; i <= 5; i++) {
     options.push(
-      <option key={i} value={Number(i)}>
-        {Number(i)}
+      <option key={i} value={i}>
+        {i}
       </option>
     );
   }

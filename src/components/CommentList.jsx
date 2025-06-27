@@ -1,7 +1,11 @@
 import { Alert, Button, ListGroup } from "react-bootstrap";
-import { deleteComment } from "../redux/commentSlice";
+import { useDispatch, useSelector } from "react-redux"; 
+import { deleteComment } from "./redux/commentSlice"; 
 
-function CommentList({ comments, dispatch }) {
+function CommentList() {
+  const dispatch = useDispatch(); 
+  const comments = useSelector((state) => state.comments); 
+
   const handleDeleteComment = (commentId) => {
     dispatch(deleteComment(commentId));
   };
