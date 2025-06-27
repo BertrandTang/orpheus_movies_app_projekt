@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { addComment } from "./redux/commentSlice";
+import { addComment } from "../redux/commentSlice";
 
 const schema = yup.object().shape({
   comment: yup
