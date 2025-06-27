@@ -102,12 +102,10 @@ function CommentForm() {
             type="checkbox"
             {...register("acceptConditions")}
             isInvalid={!!errors.acceptConditions}
+            feedback={errors.acceptConditions?.message}
+            feedbackType="invalid"
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.acceptConditions?.message}
-          </Form.Control.Feedback>
         </Form.Group>
-
         <Button type="submit" variant="primary">
           Ajouter
         </Button>
